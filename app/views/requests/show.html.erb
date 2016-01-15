@@ -1,0 +1,50 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Nombre:</strong>
+  <%= @request.nombre %>
+</p>
+
+<p>
+  <strong>Telefono:</strong>
+  <%= @request.telefono %>
+</p>
+
+<p>
+  <strong>Movil:</strong>
+  <%= @request.movil %>
+</p>
+
+<p>
+  <strong>Producto:</strong>
+  <%= @request.producto %>
+</p>
+
+<p>
+  <strong>Npro:</strong>
+  <%= @request.npro %>
+</p>
+
+<p>
+  <strong>Direccion:</strong>
+  <%= @request.direccion %>
+</p>
+
+<p>
+  <strong>Email:</strong>
+  <%= @request.email %>
+</p>
+<p>
+  <strong>Estado:</strong>
+  <%= estados(@request.estado) %>
+</p>
+
+<p>
+  <strong>Tiposoli:</strong>
+  <%= tipo(@request.tiposoli) %>
+</p>
+<%= link_to "aceptar", request_aceptar_path(@request)%>
+<%= link_to "rechazar", request_rechazar_path(@request)%>
+<%= link_to 'Edit', edit_request_path(@request) %> |
+<%= link_to 'Back', requests_path %>
+

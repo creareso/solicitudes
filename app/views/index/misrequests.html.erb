@@ -1,0 +1,42 @@
+
+
+<h1>Listing Requests</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Nombre</th>
+      <th>Telefono</th>
+      <th>Movil</th>
+      <th>Producto</th>
+      <th>Npro</th>
+      <th>Direccion</th>
+      <th>Email</th>
+      <th>Estado</th>
+      <th>Tiposoli</th>
+      
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @requests.each do |request| %>
+        <% if current_user.id == request.idus %>
+      <tr>
+        <td><%= request.nombre %></td>
+        <td><%= request.telefono %></td>
+        <td><%= request.movil %></td>
+        <td><%= request.producto %></td>
+        <td><%= request.npro %></td>
+        <td><%= request.direccion %></td>
+        <td><%= request.email %></td>
+        <td><%= estados(request.estado) %></td>
+        <td><%= tipo(request.tiposoli) %></td>
+        <td><%= request.idus %></td>
+        <td><%= link_to 'Show', request %></td>
+      </tr>
+      <% end %>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
