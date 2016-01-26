@@ -4,7 +4,8 @@ class RequestsController < ApplicationController
   # GET /requests
   # GET /requests.json
   def index
-    @requests = Request.all
+    @requests = Request.where(:estado => 0).paginate(:page => params[:page], :per_page => 8)
+    @request = Request.new
   end
 
   # GET /requests/1
@@ -32,7 +33,7 @@ class RequestsController < ApplicationController
 
     respond_to do |format|
       if @request.save
-        format.html { redirect_to @request, notice: 'Request was successfully created.' }
+        format.html { redirect_to @request, notice: 'Solicitud creada.' }
         format.json { render :show, status: :created, location: @request }
       else
         format.html { render :new }
@@ -46,7 +47,7 @@ class RequestsController < ApplicationController
   def update
     respond_to do |format|
       if @request.update(request_params)
-        format.html { redirect_to @request, notice: 'Request was successfully updated.' }
+        format.html { redirect_to @request, notice: 'Solicitud actualizada.' }
         format.json { render :show, status: :ok, location: @request }
       else
         format.html { render :edit }
@@ -62,8 +63,17 @@ class RequestsController < ApplicationController
    @request = Request.find(params[:request_id])
     @request.idus = current_user.id
     @request.estado = 1
-    @request.save
-    redirect_to requests_path
+    respond_to do |format|
+      if @request.save
+        format.html { redirect_to requests_path, notice: 'Solicitud reclamada, por favor revisa tu lista de solicitudes.' }
+        format.json { render :show, status: :created, location: @persona }
+        format.js
+      else
+        format.html { render :new }
+        format.json { render json: @request.errors, status: :unprocessable_entity }
+        format.js
+      end
+    end
   end
 
   def aceptar
@@ -71,8 +81,17 @@ class RequestsController < ApplicationController
    @request = Request.find(params[:request_id])
     @request.idus = current_user.id
     @request.estado = 2
-    @request.save
-    redirect_to index_misrequests_path
+   respond_to do |format|
+      if @request.save
+        format.html { redirect_to index_misrequests_path, notice: 'Solicitud aceptada con éxito.' }
+        format.json { render :show, status: :created, location: @persona }
+        format.js
+      else
+        format.html { render :new }
+        format.json { render json: @request.errors, status: :unprocessable_entity }
+        format.js
+      end
+    end
   end
 
   def rechazar
@@ -80,8 +99,17 @@ class RequestsController < ApplicationController
    @request = Request.find(params[:request_id])
     @request.idus = current_user.id
     @request.estado = 3
-    @request.save
-    redirect_to index_misrequests_path
+    respond_to do |format|
+      if @request.save
+        format.html { redirect_to index_misrequests_path, notice: 'Solicitud rechazada con éxito.' }
+        format.json { render :show, status: :created, location: @persona }
+        format.js
+      else
+        format.html { render :new }
+        format.json { render json: @request.errors, status: :unprocessable_entity }
+        format.js
+      end
+    end
   end
 
   # DELETE /requests/1
@@ -89,8 +117,9 @@ class RequestsController < ApplicationController
   def destroy
     @request.destroy
     respond_to do |format|
-      format.html { redirect_to requests_url, notice: 'Request was successfully destroyed.' }
+      format.html { redirect_to requests_url, notice: 'La solicitud se ha eliminado.' }
       format.json { head :no_content }
+      format.js
     end
   end
 

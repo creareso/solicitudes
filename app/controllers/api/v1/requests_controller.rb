@@ -3,14 +3,13 @@ module Api
         class RequestsController < ApplicationController
             class Request < ::Request
               def mensaje
-                "procesado con exito"
+                "Codigo: EXI002 - Procesado con éxito"
               end
             end
       
       respond_to :json 
 
       def index
-      
         respond_with Request.all
       end
       
@@ -45,6 +44,43 @@ module Api
             b = a.to_s
             c = b.tr('[]','')
             d = c[1..-2]
+            men = ""
+            if d.include?('no es un numero') == true
+            codigo = "ERR001"
+            men = "#{codigo} - #{d}"
+            flash[:notice] = "#{men}"
+            elsif d.include?('formato no valido') == true
+            codigo = "ERR002"
+            men = "#{codigo} - #{d}"
+            flash[:notice] = "#{men}"
+            elsif d.include?('esta vacio') == true
+            codigo = "ERR003"
+            men = "#{codigo} - #{d}"
+            flash[:notice] = "#{}"
+            end
+           # arr={"codigo" => codigo,"mensaje" => d, "detalle" => "Error al guardar los datos"}
+           # z = arr.keys
+           # respond_with arr.to_json
+            
+            redirect_to requests_path
+          else
+            flash[:notice] = "Codigo: EXI002 - Procesado con éxito"
+            redirect_to requests_path
+          end 
+        end
+        #respond_with Request.create(params[:request])
+      end
+
+      def update
+        request = Request.find(params[:id])
+        if params[:request] != nil
+          request.update(params[:request])
+          if request.valid? == false
+            arr = Hash.new
+           a = request.errors.values[0]
+            b = a.to_s
+            c = b.tr('[]','')
+            d = c[1..-2]
             if d.include?('no es un numero') == true
             codigo = "1001"
             elsif d.include?('formato no valido') == true
@@ -56,17 +92,10 @@ module Api
             respond_with arr.to_json
            
           else
-            redirect_to api_v1_request_path(@request)
-          end
-
-
-         
+            redirect_to api_v1_request_path(request)
+          end 
         end
-        #respond_with Request.create(params[:request])
-      end
-
-      def update
-        respond_with Request.update(params[:id], params[:request])
+        #espond_with Request.update(params[:id], params[:request])
       end
 
       def destroy

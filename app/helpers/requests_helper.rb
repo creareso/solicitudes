@@ -1,13 +1,13 @@
 module RequestsHelper
     def estados(esta)
         if esta == 0
-            "<span class='label label-info'>Registrado </span>".html_safe
+            "<span class='btn-primary btn-xl'>Registrada </span>".html_safe
         elsif esta == 1
-            "<span class='label label-primary'>Asignado</span>".html_safe
+            "<span class='btn-info btn-xl'>Asignada</span>".html_safe
         elsif esta == 2
-            "<span class='label label-success'>Aceptado</span>".html_safe
+            "<span class='btn-success btn-xl'>Aceptada</span>".html_safe
         elsif esta == 3
-            "<span class='label label-warning'>Rechazado</span>".html_safe
+            "<span class='btn-warning btn-xl'>Rechazada</span>".html_safe
         end
             
     end

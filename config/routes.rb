@@ -5,7 +5,10 @@ Rails.application.routes.draw do
   get 'index/index'
   get 'index/tablerocomando'
   get 'index/organigrama'
-  get 'index/misrequests'
+  get 'index/misrequests'#, :path => 'requests?user_id=request_id&estado=asignada'
+    get 'index/aceptados'
+      get 'index/rechazados'
+  
  
  resources :requests do
    match 'reclamar', :action => 'reclamar', :controller => 'requests', :via => [:get]
@@ -25,6 +28,7 @@ end
     #  match 'request/err', :action => 'err', :via => [:get], :controller => "requests", :as => :errores
     end
   end
+
   devise_scope :user do
     get '/users/sign_out' => 'devise/sessions#destroy'
   end

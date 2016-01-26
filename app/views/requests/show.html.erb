@@ -1,50 +1,116 @@
-<p id="notice"><%= notice %></p>
+<header>
+    <h2>
+      <b><i><%= tipo(@request.tiposoli) %></i></b>
+    </h2>
+  </header>
+  <fieldset class="col col-sm-12">
+    <header style="text-decoration: underline;">
+      <h6>
+        <b><i>Datos cliente</i></b>
+      </h6>
+    </header>
+    <section>
+      <b><i>Fecha de solicitud:&nbsp;&nbsp;<span>&nbsp;&nbsp;<%= @request.created_at.strftime("%m/%d/%Y") %></span></i></b>
+    </section>
+    <section>
+      <b><i>Nombre completo:&nbsp;&nbsp;<span>&nbsp;&nbsp; <%= @request.nombre %></span></i></b>
+    </section>
+    <section>
+      <b><i>Telefono:&nbsp;&nbsp;<span>&nbsp;&nbsp;<%= @request.telefono %>&nbsp;&nbsp;</span></i></b>
+      <b><i>&nbsp;&nbsp;Celular:&nbsp;&nbsp;<span>&nbsp;&nbsp;<%= @request.movil %>&nbsp;&nbsp;</span></i></b>
+    </section>
+    <section>
+      <b><i>Producto:&nbsp;&nbsp;<span>&nbsp;&nbsp;<%= @request.producto %></span></i></b>
+    </section>
+    <section>
+      <b><i>Numero de producto:&nbsp;&nbsp;<span>&nbsp;&nbsp;<%= @request.npro %></span></i></b>
+    </section>
+    <section>
+      <b><i>Dirección:&nbsp;&nbsp;<span>&nbsp;&nbsp;<%= @request.direccion %></span></i></b>
+    </section>
+    <section>
+      <b><i>Email:&nbsp;&nbsp;<span>&nbsp;&nbsp;<%= @request.email %></span></i></b>
+    </section>
+    <section>
+      <b><i>Estado actual:&nbsp;&nbsp;<span>&nbsp;&nbsp;<%= estados(@request.estado) %></span></i></b>
+    </section> 
+<section class="col col-sm-12"><hr width="50%" align="left" style="color: silver;; border: solid 1px;" ></section>
+ 
+    <section class="col col-sm-12">
+      <div class="col col-sm-1">
+        <label class="checkbox"> <input name="checkbox-inline"
+          type="checkbox" id="evidente"> <b><i>Evidente?</i></b></label>
+      </div>
+      <div class="col col-sm-2">
+        <label class="input">
+            <input type="date" id="fecha" placeholder="Fecha DD/MM/AAAA">
+        </label>
+      </div>
+      <div class="col col-sm-2">
+        <label class="input">
+            <input type="text" id="preg" placeholder="Preguntas correctas">
+        </label>
+      </div>
+    </section>
+    <section class="col col-sm-12">
+      <div class="col col-sm-3">
+        <label class="checkbox"> <input name="checkbox-inline"
+          type="checkbox" id="bd"> <b><i>En la base de datos coorporativa</i></b></label>
+      </div>
+      <div class="col col-sm-9">
+        <input type="date" id="fech2" placeholder="Fecha DD/MM/AAAA">
+      </div>
+    </section>
+    <section class="col col-sm-12">
+      <textarea rows="5" cols="70" id="observaciones"></textarea>
+    </section>
+    <footer class="col col-sm-12">
+      <b><i><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#aceptar">Aceptar</button></i></b>
+      <b><i><button type="button" class="btn btn-warning" data-toggle="modal" data-target="#rechazar">Rechazar</button></i></b>
+      <b><i><button class="btn btn-default" >Escalar </button></i></b>
+      <b><i><button onclick="window.location.href='<%= index_misrequests_path %>'" method="get" class="btn btn-default" >Atrás </button></i></b>
+<!-- Modal Aceptar-->
+<div class="modal fade" id="aceptar" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title" id="myModalLabel">Aceptar solicitud</h4>
+        </div>
+        <div class="modal-body">
+        <h4>Estas seguro?</h4>  
+        <div class="modal-footer">
+          <button onclick="window.location.href='<%= request_aceptar_path(@request) %>'" method="post" class="btn btn-primary btn-sm">Aceptar</button>
+          <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>
+<!-- Fin modal-->
+<!-- Modal Rechazar-->
+<div class="modal fade" id="rechazar" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title" id="myModalLabel">Rechazar solicitud</h4>
+        </div>
+        <div class="modal-body">
+        <h4>Estas seguro?</h4>  
+        <div class="modal-footer">
+          <button onclick="window.location.href='<%= request_rechazar_path(@request) %>'" method="post" class="btn btn-warning btn-sm">Rechazar</button>
+          <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>
+<!-- Fin modal-->
+<%#= link_to 'Edit', edit_request_path(@request) %> 
 
-<p>
-  <strong>Nombre:</strong>
-  <%= @request.nombre %>
-</p>
 
-<p>
-  <strong>Telefono:</strong>
-  <%= @request.telefono %>
-</p>
+    </footer>
 
-<p>
-  <strong>Movil:</strong>
-  <%= @request.movil %>
-</p>
-
-<p>
-  <strong>Producto:</strong>
-  <%= @request.producto %>
-</p>
-
-<p>
-  <strong>Npro:</strong>
-  <%= @request.npro %>
-</p>
-
-<p>
-  <strong>Direccion:</strong>
-  <%= @request.direccion %>
-</p>
-
-<p>
-  <strong>Email:</strong>
-  <%= @request.email %>
-</p>
-<p>
-  <strong>Estado:</strong>
-  <%= estados(@request.estado) %>
-</p>
-
-<p>
-  <strong>Tiposoli:</strong>
-  <%= tipo(@request.tiposoli) %>
-</p>
-<%= link_to "aceptar", request_aceptar_path(@request)%>
-<%= link_to "rechazar", request_rechazar_path(@request)%>
-<%= link_to 'Edit', edit_request_path(@request) %> |
-<%= link_to 'Back', requests_path %>
+  </fieldset>
 

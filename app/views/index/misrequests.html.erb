@@ -1,20 +1,16 @@
+<h1>Mis solicitudes</h1>
 
-
-<h1>Listing Requests</h1>
-
-<table>
+<table class="table table-bordered table-striped table-condensed table-hover smart-form has-tickbox">
   <thead>
     <tr>
       <th>Nombre</th>
-      <th>Telefono</th>
-      <th>Movil</th>
       <th>Producto</th>
       <th>Npro</th>
       <th>Direccion</th>
       <th>Email</th>
       <th>Estado</th>
       <th>Tiposoli</th>
-      
+      <th></th>
     </tr>
   </thead>
 
@@ -23,16 +19,13 @@
         <% if current_user.id == request.idus %>
       <tr>
         <td><%= request.nombre %></td>
-        <td><%= request.telefono %></td>
-        <td><%= request.movil %></td>
         <td><%= request.producto %></td>
         <td><%= request.npro %></td>
         <td><%= request.direccion %></td>
         <td><%= request.email %></td>
         <td><%= estados(request.estado) %></td>
         <td><%= tipo(request.tiposoli) %></td>
-        <td><%= request.idus %></td>
-        <td><%= link_to 'Show', request %></td>
+        <td><%= button_to 'Ver', request, method: :get ,class: "btn btn-default btn-sm"  %></td>
       </tr>
       <% end %>
     <% end %>
@@ -40,3 +33,10 @@
 </table>
 
 <br>
+<%= will_paginate @requests, renderer: BootstrapPagination::Rails %>
+<br>
+<div class="btn-group">
+    <a href="#" class="btn btn-default disabled"><b>Cantidad:</b> <span class="badge"> <%= @requests.count %></span></a>
+    <a href="<%=  index_aceptados_path %>" class="btn btn-default">Ver aceptadas</a>
+    <a href="<%=  index_rechazados_path %>" class="btn btn-default">Ver rechazadas</a>
+</div>

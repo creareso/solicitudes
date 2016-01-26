@@ -10,9 +10,10 @@ class ApplicationController < ActionController::Base
       redirect_to "/users/sign_in" unless current_user
       flash[:alert] = "Please register or sign in"
     end
+    $userid = current_user.id 
   end
 
-  
+   
   
 protected
 

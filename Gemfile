@@ -49,3 +49,5 @@ end
 
 #gem 'font-awesome-less', '~> 4.5.0'
 gem 'devise'
+gem 'will_paginate'    
+gem 'will_paginate-bootstrap'
