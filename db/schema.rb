@@ -11,52 +11,54 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151228054038) do
+ActiveRecord::Schema.define(version: 20160127015501) do
 
   create_table "pruebas", force: :cascade do |t|
-    t.string   "nombre",     limit: 255
-    t.string   "edad",       limit: 255
-    t.datetime "created_at",             null: false
-    t.datetime "updated_at",             null: false
+    t.string   "nombre"
+    t.string   "edad"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "requests", force: :cascade do |t|
-    t.string   "nombre",     limit: 255
-    t.string   "telefono",   limit: 255
-    t.string   "movil",      limit: 255
-    t.string   "producto",   limit: 255
-    t.integer  "npro",       limit: 4
-    t.string   "direccion",  limit: 255
-    t.string   "email",      limit: 255
-    t.integer  "estado",     limit: 4
-    t.integer  "idus",       limit: 4
-    t.integer  "tiposoli",   limit: 4
-    t.datetime "created_at",             null: false
-    t.datetime "updated_at",             null: false
+    t.string   "nombre"
+    t.string   "telefono"
+    t.string   "movil"
+    t.string   "producto"
+    t.integer  "npro"
+    t.string   "direccion"
+    t.string   "email"
+    t.integer  "estado"
+    t.integer  "tiposoli"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer  "idus"
   end
 
   create_table "users", force: :cascade do |t|
-    t.string   "nombre",                 limit: 255
-    t.string   "telefono",               limit: 255
-    t.string   "movil",                  limit: 255
-    t.string   "producto",               limit: 255
-    t.integer  "npro",                   limit: 4
-    t.string   "direccion",              limit: 255
-    t.string   "email",                  limit: 255
-    t.string   "encrypted_password",     limit: 255
-    t.string   "reset_password_token",   limit: 255
+    t.string   "nombre",                 default: "", null: false
+    t.string   "telefono",               default: "", null: false
+    t.string   "movil",                  default: "", null: false
+    t.string   "producto",               default: "", null: false
+    t.integer  "npro",                                null: false
+    t.string   "direccion",              default: "", null: false
+    t.string   "email",                  default: "", null: false
+    t.string   "encrypted_password",     default: "", null: false
+    t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.integer  "sign_in_count",          limit: 4,   default: 0, null: false
+    t.integer  "sign_in_count",          default: 0,  null: false
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
-    t.string   "current_sign_in_ip",     limit: 255
-    t.string   "last_sign_in_ip",        limit: 255
-    t.datetime "created_at",                                     null: false
-    t.datetime "updated_at",                                     null: false
+    t.string   "current_sign_in_ip"
+    t.string   "last_sign_in_ip"
+    t.datetime "created_at",                          null: false
+    t.datetime "updated_at",                          null: false
+    t.string   "provider"
+    t.string   "uid"
   end
 
-  add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
-  add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
+  add_index "users", ["email"], name: "index_users_on_email", unique: true
+  add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
 
 end
